@@ -5,6 +5,12 @@ import {createButtonShowMore} from "./view/showMore.js";
 import {createTopRated, createMostCommented,createExtraCardsMostCommented, createExtraCardsTopRated} from "./view/extra-list";
 import {createCountMovies} from "./view/countMovies";
 import {createPopup} from "./view/popup.js";
+import {createCard} from "./mock/createCard.js";
+
+const CARDS_COUNT = 20;
+const cards = new Array(CARDS_COUNT).fill().map(createCard);
+console.log(cards)
+
 const CARDS_COUNT_CONTAINER = 2;
 const siteHeaderElement = document.querySelector(`.header`);
 const siteMainElement = document.querySelector(`.main`);
