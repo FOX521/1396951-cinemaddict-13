@@ -28,12 +28,16 @@ const sectionListFilms = document.querySelector(`.films`);
 render(sectionListFilms, createListFilms(), `beforeend`);
 const listFilm = document.querySelector(`.films-list`);
 const wrapperFilm = document.querySelector(`.films-list__container`);
-render(wrapperFilm, createCardsFilms(), `beforeend`);
-render(listFilm, createButtonShowMore(), `beforeend`);
 
+for(let i = 0; i < cards.length; i++) {
+  render(wrapperFilm, createCardsFilms(cards[i]), `beforeend`);
+};
+
+render(listFilm, createButtonShowMore(), `beforeend`);
 render(sectionListFilms, createTopRated(), `beforeend`);
 render(sectionListFilms, createMostCommented(), `beforeend`);
 const listFilmsExtra = document.querySelectorAll(`.films-list--extra`);
+
 for (let i = 0; i < CARDS_COUNT_CONTAINER; i++) {
   const containerExtraFilms = listFilmsExtra[i].querySelector(`.films-list__container`);
   if (i < 1) {
@@ -42,6 +46,6 @@ for (let i = 0; i < CARDS_COUNT_CONTAINER; i++) {
   render(containerExtraFilms, createExtraCardsMostCommented(), `beforeend`);
 };
 render(footerStatistic, createCountMovies(), `beforeend`);
-render(siteFooterElement, createPopup(), `afterend`);
+render(siteFooterElement, createPopup(cards[0]), `afterend`);
 
 

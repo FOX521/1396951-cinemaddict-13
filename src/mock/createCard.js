@@ -1,6 +1,8 @@
 import {getRandomInteger} from '../util.js';
 import dayjs from 'dayjs';
 const commentsFilms = [];
+
+
 const generateTtitleFilms = () => {
   const titlesFims = [
     'the Dance of Life',
@@ -12,19 +14,19 @@ const generateTtitleFilms = () => {
     'Made for Each Other'
   ];
 
-  return titlesFims[getRandomInteger(0, titlesFims.length)];
+  return titlesFims[getRandomInteger(0, titlesFims.length -1)];
 };
 
 const getPoster = () => {
   const posterFilms = [
-    './images/made-for-each-other.png',
-    './images/popeye-meets-sinbad.png',
-    './images/sagebrush-trail.jpg',
-    './images/santa-claus-conquers-the-martians.jpg',
-    './images/the-dance-of-life.jpg'
+    './images/posters/made-for-each-other.png',
+    './images/posters/popeye-meets-sinbad.png',
+    './images/posters/sagebrush-trail.jpg',
+    './images/posters/santa-claus-conquers-the-martians.jpg',
+    './images/posters/the-dance-of-life.jpg'
   ];
 
-  return posterFilms[getRandomInteger(0, posterFilms.length)];
+  return posterFilms[getRandomInteger(0, posterFilms.length -1)];
 };
 
 const createDescription = () => {
@@ -36,7 +38,7 @@ const createDescription = () => {
     'Nunc fermentum tortor ac porta dapibus. In rutrum ac purus sit amet tempus.'
   ];
 
-  return descriptionsFilms[getRandomInteger(0, descriptionsFilms.length)];
+  return descriptionsFilms[getRandomInteger(0, descriptionsFilms.length -1)];
 };
 
 const createNameAphtor = () => {
@@ -48,7 +50,7 @@ const createNameAphtor = () => {
     'Valmond'
   ];
 
-  return nameAphtors[getRandomInteger(0,nameAphtors.length)];
+  return nameAphtors[getRandomInteger(0,nameAphtors.length -1)];
 };
 
 const getEmotion = () => {
@@ -59,25 +61,29 @@ const getEmotion = () => {
     'smile'
   ];
 
-  return emotions[getRandomInteger(0, emotions.length)];
+  return emotions[getRandomInteger(0, emotions.length -1)];
 };
 
 const generateYearFim = () => {
-  return getRandomInteger(1920,1970);
+  let randomDateFilmYear = dayjs().format('DD MMM YYYY')
+  let randomDateFilm = dayjs().format('YYYY');
+  const data =[];
+  data.push(randomDateFilmYear);
+  data.push(randomDateFilm);
+  return data;
 };
 
-const generateDate = () => {
-  return dayjs().format('YYYY/MM/DDTHH:mm');
+const generateDateCommit = () => {
+  return dayjs().format('YYYY/MM/DD HH:mm');
 };
 
 const createComment = () => {
-  const commentsFilms = [];
-  for(let i = 0; i < getRandomInteger(0, 5); i++) {
+  for(let i = 0; i < 5; i++) {
     const comment = {
       text: createDescription(0, 5),
       name: createNameAphtor(0, 5),
       emotions: getEmotion(0, 4),
-      date: generateDate()
+      date: generateDateCommit()
     };
     commentsFilms.push(comment);
   }
@@ -85,10 +91,11 @@ const createComment = () => {
 };
 
 const createRating = () => {
-  return getRandomInteger(1,10);
+  return (getRandomInteger(1, 10));
 };
 
 const createGenre = () => {
+  let randomGenre = new Set();
   const genreFilms = [
     'Comedy',
     'Cartoon',
@@ -98,7 +105,12 @@ const createGenre = () => {
     'Mystery'
   ];
 
-  return genreFilms[getRandomInteger(0, genreFilms.length)];
+  for(let i = 0; i < getRandomInteger(1,3); i++) {
+    randomGenre.add(genreFilms[getRandomInteger(0, genreFilms.length -1)]);
+  };
+  const genres = Array.from(randomGenre);
+
+  return genres;
 };
 
 const createDuration = () => {
@@ -107,17 +119,84 @@ const createDuration = () => {
   return `${hour}h ${minute}m`;
 };
 
+const createRatingAge = () => {
+  const randomRaiting = getRandomInteger(6, 18);
+  if (randomRaiting === 18) {
+    randomRaiting.toString;
+    return randomRaiting + '+';
+  } else
+   return randomRaiting;
+};
+
+const createCountry = () => {
+  const countries = [
+    'USA',
+    'Russia',
+    'Germany',
+    'France'
+  ];
+
+  return countries[getRandomInteger(0, countries.length -1)];
+};
+
+const createDirector = () => {
+  const directors = [
+    'Anthony Mann',
+    'Timur Becmambetow',
+    'Kristopher Nolan',
+    'Bondarchuck'
+  ];
+
+  return directors[getRandomInteger(0, directors.length -1)];
+};
+
+const createWriters = () => {
+  const randomWriters = new Set();
+  const writersFilm = [
+    'Anne Wigton',
+    'Heinz Herald',
+    'Richard Weil',
+  ];
+  for(let i = 0; i < writersFilm.length -1; i++) {
+    randomWriters.add(writersFilm[getRandomInteger(0, writersFilm.length -1)]);
+  };
+  const writers = Array.from(randomWriters).join(', ');
+  return writers;
+};
+
+const createActors = () => {
+  const randomActors = new Set();
+  const actorsFilm = [
+    'Nicola Tesla',
+    'Leonardo Dicaprio',
+    'Uill Smit',
+    'Djonni Depp',
+    'Vasya'
+  ];
+  for(let i =0; i < getRandomInteger(1, 4); i++) {
+    randomActors.add(actorsFilm[getRandomInteger(0, actorsFilm.length -1)])
+  };
+  let actors = Array.from(randomActors).join(', ');
+  return actors;
+};
+
+
 
 export const createCard = () => {
-  return {
+    return {
     title: generateTtitleFilms(),
     poster: getPoster(),
     description: createDescription(),
-    genre: createGenre(),
-    year: generateYearFim(),
-    countCommit: Number(commentsFilms.length),
+    genres: createGenre(),
+    dateFilm: generateYearFim(),
+    comment: createComment(),
+    countCommit: Number(commentsFilms.length -1),
     duration: createDuration(),
     rating: createRating(),
-    comment: createComment(),
+    ratingAge: createRatingAge(),
+    country: createCountry(),
+    directors: createDirector(),
+    writers: createWriters(),
+    actor: createActors()
   };
 };
