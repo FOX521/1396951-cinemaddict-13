@@ -8,10 +8,11 @@ import {createPopup} from "./view/popup.js";
 import {createCard} from "./mock/createCard.js";
 
 const CARDS_COUNT = 20;
+const CARDS_COUNT_STEP = 5;
+const CARDS_COUNT_CONTAINER = 2;
 const cards = new Array(CARDS_COUNT).fill().map(createCard);
 console.log(cards)
 
-const CARDS_COUNT_CONTAINER = 2;
 const siteHeaderElement = document.querySelector(`.header`);
 const siteMainElement = document.querySelector(`.main`);
 const siteFooterElement = document.querySelector(`.footer`);
@@ -29,11 +30,26 @@ render(sectionListFilms, createListFilms(), `beforeend`);
 const listFilm = document.querySelector(`.films-list`);
 const wrapperFilm = document.querySelector(`.films-list__container`);
 
-for(let i = 0; i < cards.length; i++) {
+for(let i = 0; i < Math.min(cards.length, CARDS_COUNT_STEP); i++) {
   render(wrapperFilm, createCardsFilms(cards[i]), `beforeend`);
 };
 
-render(listFilm, createButtonShowMore(), `beforeend`);
+if (cards.length > CARDS_COUNT_STEP) {
+  let renderCardCount = CARDS_COUNT_STEP;
+  render(listFilm, createButtonShowMore(), `beforeend`);
+  const buttonShowMore = document.querySelector(`.films-list__show-more`);
+  buttonShowMore.addEventListener(`click`, function (evt) {
+    evt.preventDefault();
+    cards.slice(renderCardCount, renderCardCount + CARDS_COUNT_STEP)
+    .forEach((card) =>   render(wrapperFilm, createCardsFilms(card), `beforeend`));
+    renderCardCount += CARDS_COUNT_STEP;
+
+    if (renderCardCount >= cards.length) {
+      buttonShowMore.remove();
+    }
+  });
+};
+
 render(sectionListFilms, createTopRated(), `beforeend`);
 render(sectionListFilms, createMostCommented(), `beforeend`);
 const listFilmsExtra = document.querySelectorAll(`.films-list--extra`);
@@ -41,11 +57,11 @@ const listFilmsExtra = document.querySelectorAll(`.films-list--extra`);
 for (let i = 0; i < CARDS_COUNT_CONTAINER; i++) {
   const containerExtraFilms = listFilmsExtra[i].querySelector(`.films-list__container`);
   if (i < 1) {
-    render(containerExtraFilms, createExtraCardsTopRated(), `beforeend`);
+    render(containerExtraFilms, createExtraCardsTopRated(cards[i]), `beforeend`);
   } else
-  render(containerExtraFilms, createExtraCardsMostCommented(), `beforeend`);
+  render(containerExtraFilms, createExtraCardsMostCommented(cards[i++]), `beforeend`);
 };
-render(footerStatistic, createCountMovies(), `beforeend`);
-render(siteFooterElement, createPopup(cards[0]), `afterend`);
+render(footerStatistic, createCountMovies(cards), `beforeend`);
+// render(siteFooterElement, createPopup(cards[0]), `afterend`);
 
 

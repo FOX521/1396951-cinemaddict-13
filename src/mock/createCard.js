@@ -1,7 +1,11 @@
 import {getRandomInteger} from '../util.js';
 import dayjs from 'dayjs';
-const commentsFilms = [];
-
+const COUNT_COMMIT = 5;
+const MAX_RATING = 10;
+const MIN_AGE_RATING = 6;
+const MAX_AGE_RATING = 18;
+const COUNT_EMOTION = 4;
+let commentsFilms = [];
 
 const generateTtitleFilms = () => {
   const titlesFims = [
@@ -78,11 +82,13 @@ const generateDateCommit = () => {
 };
 
 const createComment = () => {
-  for(let i = 0; i < 5; i++) {
+  commentsFilms = [];
+  for(let i = 0; i <= getRandomInteger(0, COUNT_COMMIT); i++) {
     const comment = {
-      text: createDescription(0, 5),
-      name: createNameAphtor(0, 5),
-      emotions: getEmotion(0, 4),
+      id: i,
+      text: createDescription(0, COUNT_COMMIT),
+      name: createNameAphtor(0, COUNT_COMMIT),
+      emotions: getEmotion(0, COUNT_EMOTION),
       date: generateDateCommit()
     };
     commentsFilms.push(comment);
@@ -91,7 +97,7 @@ const createComment = () => {
 };
 
 const createRating = () => {
-  return (getRandomInteger(1, 10));
+  return (getRandomInteger(1, MAX_RATING));
 };
 
 const createGenre = () => {
@@ -120,8 +126,8 @@ const createDuration = () => {
 };
 
 const createRatingAge = () => {
-  const randomRaiting = getRandomInteger(6, 18);
-  if (randomRaiting === 18) {
+  const randomRaiting = getRandomInteger(MIN_AGE_RATING, MAX_AGE_RATING);
+  if (randomRaiting === MAX_AGE_RATING) {
     randomRaiting.toString;
     return randomRaiting + '+';
   } else
@@ -173,24 +179,30 @@ const createActors = () => {
     'Djonni Depp',
     'Vasya'
   ];
-  for(let i =0; i < getRandomInteger(1, 4); i++) {
+  for(let i =0; i < getRandomInteger(1, actorsFilm.length -1); i++) {
     randomActors.add(actorsFilm[getRandomInteger(0, actorsFilm.length -1)])
   };
   let actors = Array.from(randomActors).join(', ');
   return actors;
 };
 
-
+const getRandomId = () => {
+  return getRandomInteger(0, 20);
+};
 
 export const createCard = () => {
     return {
+    id: getRandomId(),
+    isFavorite: Boolean(getRandomInteger(0,1)),
+    isWatchList: Boolean(getRandomInteger(0,1)),
+    isHistory: Boolean(getRandomInteger(0,1)),
     title: generateTtitleFilms(),
     poster: getPoster(),
     description: createDescription(),
     genres: createGenre(),
     dateFilm: generateYearFim(),
     comment: createComment(),
-    countCommit: Number(commentsFilms.length -1),
+    countCommit: Number(commentsFilms.length),
     duration: createDuration(),
     rating: createRating(),
     ratingAge: createRatingAge(),
@@ -198,5 +210,5 @@ export const createCard = () => {
     directors: createDirector(),
     writers: createWriters(),
     actor: createActors()
-  };
+  }
 };

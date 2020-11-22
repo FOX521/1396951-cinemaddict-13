@@ -1,27 +1,26 @@
 export const createPopup = (card = {}) => {
   const {title, poster, description, genres,  comment, countCommit, duration, rating, ratingAge, country, directors, writers, actor, dateFilm} = card;
   const [date] = dateFilm;
-  let comments = [];
+  let comments = '';
   let genre;
 
-  const addComment = (commentArray) => {
-    for(let i = 0; i < commentArray.length -1; i++) {
-      comments += (`<li class="film-details__comment">
-      <span class="film-details__comment-emoji">
-        <img src="./images/emoji/${commentArray[i].emotions}.png" width="55" height="55" alt="emoji-smile">
-      </span>
-      <div>
-        <p class="film-details__comment-text">${commentArray[i].text}</p>
-        <p class="film-details__comment-info">
-          <span class="film-details__comment-author">${commentArray[i].name}</span>
-          <span class="film-details__comment-day">${commentArray[i].date}</span>
-          <button class="film-details__comment-delete">Delete</button>
-        </p>
-      </div>
-    </li>`);
-    };
-  };
-  addComment(comment);
+  comment.forEach(element => {
+    let {date: dataComment, emotions, name, text} = element;
+    comments += `<li class="film-details__comment">
+    <span class="film-details__comment-emoji">
+      <img src="./images/emoji/${emotions}.png" width="55" height="55" alt="emoji-smile">
+    </span>
+    <div>
+      <p class="film-details__comment-text">${text}</p>
+      <p class="film-details__comment-info">
+        <span class="film-details__comment-author">${name}</span>
+        <span class="film-details__comment-day">${dataComment}</span>
+        <button class="film-details__comment-delete">Delete</button>
+      </p>
+    </div>
+  </li>`
+  });
+
 
   const createGenre = (genreArray) => {
     if (genreArray.length  > 1) {
@@ -112,7 +111,7 @@ export const createPopup = (card = {}) => {
 
       <div class="film-details__bottom-container">
         <section class="film-details__comments-wrap">
-          <h3 class="film-details__comments-title">Comments ${countCommit}<span class="film-details__comments-count">4</span></h3>
+          <h3 class="film-details__comments-title">Comments<span class="film-details__comments-count"> ${countCommit}</span></h3>
 
           <ul class="film-details__comments-list">
             ${comments}
