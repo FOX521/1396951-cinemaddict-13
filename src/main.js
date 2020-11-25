@@ -6,11 +6,13 @@ import {createTopRated, createMostCommented,createExtraCardsMostCommented, creat
 import {createCountMovies} from "./view/countMovies";
 import {createPopup} from "./view/popup.js";
 import {createCard} from "./mock/createCard.js";
+import {generateFilter} from "./mock/filter.js";
 
 const CARDS_COUNT = 20;
 const CARDS_COUNT_STEP = 5;
 const CARDS_COUNT_CONTAINER = 2;
 const cards = new Array(CARDS_COUNT).fill().map(createCard);
+let filters = generateFilter(cards);
 console.log(cards)
 
 const siteHeaderElement = document.querySelector(`.header`);
@@ -23,7 +25,7 @@ const render = (container, template, place) => {
 }
 
 render(siteHeaderElement, createNickNameUser(), `beforeend`);
-render(siteMainElement, createNavigation(cards), `beforeend`);
+render(siteMainElement, createNavigation(filters), `beforeend`);
 render(siteMainElement, createContainerList(), `beforeend`);
 const sectionListFilms = document.querySelector(`.films`);
 render(sectionListFilms, createListFilms(), `beforeend`);
