@@ -1,3 +1,3 @@
-export const createCountMovies = () => {
-  return `<p>130 291 movies inside</p>`;
+export const createCountMovies = (cards) => {
+  return `<p>${cards.length} movies inside</p>`;
 };
