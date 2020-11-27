@@ -4,7 +4,7 @@ import {ListFilm, CardFilms, ContainerList} from "./view/list-films.js";
 import {ShowMore} from "./view/showMore.js";
 import {TopRated, TopCommented, CardsCommented, CardsTopRated,createExtraCardsMostCommented} from "./view/extra-list";
 import {CountMovies} from "./view/countMovies";
-import {createPopup} from "./view/popup.js";
+import {Popup} from "./view/popup.js";
 import {createCard} from "./mock/createCard.js";
 import {generateFilter} from "./mock/filter.js";
 import {RenderPosition, renderElement} from "./util.js";
@@ -75,6 +75,15 @@ for (let i = 1; i < CARDS_COUNT_CONTAINER; i++) {
 };
 
 renderElement(footerStatistic, new CountMovies(cards).getElement(), RenderPosition.BEFOREEND);
-// render(siteFooterElement, createPopup(cards[0]), `afterend`);
 
+const popupComponent = new Popup(cards);
+console.log(popupComponent)
+const showPopup = () => {
+  document.siteFooterElement.appendChild(popupComponent)
+}
+showPopup()
 
+// let posterFilm = getElmentByClassName(`.film-card__poster`);
+// let titleFilm = getElmentByClassName(`.film-card__title`);
+// let closePopup = getElmentByClassName(`.film-details__close-btn`);
+// let countCommits = getElmentByClassName(`.film-card__comments`);
