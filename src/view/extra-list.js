@@ -1,3 +1,4 @@
+import {createElement} from "../util.js";
 const createTopRated = () => {
   return `<section class="films-list films-list--extra">
       <h2 class="films-list__title">Top rated</h2>
@@ -6,6 +7,27 @@ const createTopRated = () => {
     </section>`;
 };
 
+class TopRated {
+  constructor() {
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createTopRated();
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate())
+    }
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
+
 const createMostCommented = () => {
   return `<section class="films-list films-list--extra">
   <h2 class="films-list__title">Most commented</h2>
@@ -13,6 +35,28 @@ const createMostCommented = () => {
   </div>
   </section>`;
 };
+
+class TopCommented {
+  constructor() {
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createMostCommented();
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate())
+    }
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
+
 
 const createExtraCardsMostCommented = (card = {}) => {
   let {title, poster, description, genres, dateFilm, rating, countCommit, duration} = card;
@@ -37,6 +81,28 @@ const createExtraCardsMostCommented = (card = {}) => {
 </article>`;
 };
 
+class CardsCommented {
+  constructor(card) {
+    this._element = null;
+    this._card = card;
+  }
+
+  getTemplate() {
+    return createExtraCardsMostCommented(this._card);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate())
+    }
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
+
 const createExtraCardsTopRated = (card = {}) => {
   let {title, poster, description, genres, dateFilm, rating, countCommit, duration} = card;
   let [,randomDateFilm] = dateFilm;
@@ -60,4 +126,27 @@ const createExtraCardsTopRated = (card = {}) => {
 </article>`;
 };
 
-export {createTopRated, createMostCommented, createExtraCardsMostCommented, createExtraCardsTopRated};
+class CardsTopRated {
+  constructor(card) {
+    this._element = null;
+    this._card = card;
+  }
+
+  getTemplate() {
+    return createExtraCardsTopRated(this._card);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate())
+    }
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
+
+
+export {TopRated, TopCommented, CardsCommented, CardsTopRated};

@@ -1,4 +1,6 @@
-export const createNavigation = (filters) => {
+import {createElement} from "../util.js";
+
+const createNavigation = (filters) => {
 
  let links = filters.map(createNavigationLik).join('');
 
@@ -14,8 +16,30 @@ export const createNavigation = (filters) => {
 <li><a href="#" class="sort__button">Sort by rating</a></li></ul>`;
 };
 
-const createNavigationLik = (filter) => {
-  let {name, count} = filter;
+const createNavigationLik = (filters) => {
+  let {name, count} = filters;
   return `<a href="#favorites" class="main-navigation__item">${name} <span class="main-navigation__item-count">${count}</span></a>`
-
 }
+
+export class Navigation {
+  constructor (filter) {
+    this._element = null;
+    this._filter = filter;
+  }
+
+  getTemplate() {
+    return createNavigation(this._filter);
+  }
+
+  getElement() {
+    if(!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null
+  }
+}
+

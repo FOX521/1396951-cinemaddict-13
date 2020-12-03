@@ -1,17 +1,60 @@
+import {createElement} from "../util.js";
+
 const createContainerList = () => {
   return `<section class="films"></section>`;
 };
 
+class ContainerList {
+  constructor() {
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createContainerList();
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+};
+
 const createListFilms = () => {
-  return `
-  <section class="films-list">
+  return `<section class="films-list">
     <h2 class="films-list__title visually-hidden">All movies. Upcoming</h2>
     <div class="films-list__container">
     </div>
   </section>`;
 };
 
-const createCardsFilms = ( cards = {}) => {
+class ListFilm {
+  constructor() {
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createListFilms();
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+};
+
+const createCardsFilms = (cards = {}) => {
   const {title, poster, description, genres, dateFilm, countCommit, duration, rating} = cards;
   const [genreFilms] = genres;
   const [,year] = dateFilm
@@ -35,4 +78,26 @@ const createCardsFilms = ( cards = {}) => {
 </article>`;
 };
 
-export {createListFilms, createCardsFilms, createContainerList};
+class CardFilms {
+  constructor (cards) {
+    this._element = null;
+    this._card = cards;
+  }
+
+  getTemplate() {
+    return createCardsFilms(this._card);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
+
+export {ListFilm, CardFilms, ContainerList};
