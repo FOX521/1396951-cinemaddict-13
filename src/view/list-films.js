@@ -59,6 +59,16 @@ class CardFilms extends Abstract {
   getTemplate() {
     return createCardsFilms(this._card);
   }
+
+  _clickHandler(evt) {
+    evt.preventDefault();
+    this._callback.click();
+  }
+
+  setClickHandler(callback) {
+    this._callback.click = callback;
+    this.getElement().addEventListener(`click`, this._clickHandler);
+  }
 }
 
 export  {ListFilm, CardFilms, ContainerList};

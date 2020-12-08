@@ -6,6 +6,7 @@ export default class Abstract {
       throw new Error (`Can't instantiate Abstract, only concrete one.`);
     }
     this._element = null;
+    this._callback = {};
   }
 
   getTemplate() {
@@ -18,8 +19,6 @@ export default class Abstract {
     }
     return this._element
   }
-
-
 
   removeElement() {
     this._elemtnt =  null

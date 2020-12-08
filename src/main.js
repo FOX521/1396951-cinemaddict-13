@@ -36,6 +36,7 @@ const wrapperFilm = document.querySelector(`.films-list__container`);
 
 for(let i = 0; i < Math.min(cards.length, CARDS_COUNT_STEP); i++) {
   renderElement(wrapperFilm, new CardFilms(cards[i]).getElement(), RenderPosition.BEFOREEND);
+
 };
 
 if (cards.length > CARDS_COUNT_STEP) {
