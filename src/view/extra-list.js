@@ -1,4 +1,4 @@
-import {createElement} from "../util.js";
+import  Abstract from "./abstract.js";
 const createTopRated = () => {
   return `<section class="films-list films-list--extra">
       <h2 class="films-list__title">Top rated</h2>
@@ -7,24 +7,10 @@ const createTopRated = () => {
     </section>`;
 };
 
-class TopRated {
-  constructor() {
-    this._element = null;
-  }
+class TopRated extends Abstract {
 
   getTemplate() {
     return createTopRated();
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate())
-    }
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }
 
@@ -36,24 +22,10 @@ const createMostCommented = () => {
   </section>`;
 };
 
-class TopCommented {
-  constructor() {
-    this._element = null;
-  }
+class TopCommented  extends Abstract {
 
   getTemplate() {
     return createMostCommented();
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate())
-    }
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }
 
@@ -81,25 +53,14 @@ const createExtraCardsMostCommented = (card = {}) => {
 </article>`;
 };
 
-class CardsCommented {
+class CardsCommented  extends Abstract {
   constructor(card) {
-    this._element = null;
+    super();
     this._card = card;
   }
 
   getTemplate() {
     return createExtraCardsMostCommented(this._card);
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate())
-    }
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }
 
@@ -126,25 +87,14 @@ const createExtraCardsTopRated = (card = {}) => {
 </article>`;
 };
 
-class CardsTopRated {
+class CardsTopRated  extends Abstract {
   constructor(card) {
-    this._element = null;
+    super();
     this._card = card;
   }
 
   getTemplate() {
     return createExtraCardsTopRated(this._card);
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate())
-    }
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }
 

@@ -36,6 +36,7 @@ const wrapperFilm = document.querySelector(`.films-list__container`);
 
 for(let i = 0; i < Math.min(cards.length, CARDS_COUNT_STEP); i++) {
   renderElement(wrapperFilm, new CardFilms(cards[i]).getElement(), RenderPosition.BEFOREEND);
+
 };
 
 if (cards.length > CARDS_COUNT_STEP) {
@@ -76,14 +77,16 @@ for (let i = 1; i < CARDS_COUNT_CONTAINER; i++) {
 
 renderElement(footerStatistic, new CountMovies(cards).getElement(), RenderPosition.BEFOREEND);
 
-const popupComponent = new Popup(cards);
-console.log(popupComponent)
-const showPopup = () => {
-  document.siteFooterElement.appendChild(popupComponent)
-}
-showPopup()
+const popupComponent = new Popup(cards[0]).getElement();
+console.log(popupComponent);
 
-// let posterFilm = getElmentByClassName(`.film-card__poster`);
-// let titleFilm = getElmentByClassName(`.film-card__title`);
-// let closePopup = getElmentByClassName(`.film-details__close-btn`);
-// let countCommits = getElmentByClassName(`.film-card__comments`);
+const showPopup = () => {
+  siteFooterElement.append(popupComponent);
+  let posterFilm = document.getElementsByClassName(`.film-card__poster`);
+  let titleFilm = document.getElementsByClassName(`.film-card__title`);
+  let closePopup = document.getElementsByClassName(`.film-details__close-btn`);
+  let countCommits = document.getElementsByClassName(`.film-card__comments`);
+  console.log(countCommits)
+}
+
+showPopup();

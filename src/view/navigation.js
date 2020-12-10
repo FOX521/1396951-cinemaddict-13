@@ -1,4 +1,4 @@
-import {createElement} from "../util.js";
+import  Abstract from "./abstract.js";
 
 const createNavigation = (filters) => {
 
@@ -21,25 +21,14 @@ const createNavigationLik = (filters) => {
   return `<a href="#favorites" class="main-navigation__item">${name} <span class="main-navigation__item-count">${count}</span></a>`
 }
 
-export class Navigation {
-  constructor (filter) {
-    this._element = null;
-    this._filter = filter;
+export class Navigation  extends Abstract {
+  constructor (filters) {
+    super();
+    this._filter = filters;
   }
 
   getTemplate() {
     return createNavigation(this._filter);
-  }
-
-  getElement() {
-    if(!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null
   }
 }
 

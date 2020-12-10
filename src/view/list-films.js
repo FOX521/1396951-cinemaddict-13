@@ -1,27 +1,13 @@
-import {createElement} from "../util.js";
+import  Abstract from "./abstract.js";
 
 const createContainerList = () => {
   return `<section class="films"></section>`;
 };
 
-class ContainerList {
-  constructor() {
-    this._element = null;
-  }
+class ContainerList extends Abstract {
 
   getTemplate() {
     return createContainerList();
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 };
 
@@ -33,26 +19,12 @@ const createListFilms = () => {
   </section>`;
 };
 
-class ListFilm {
-  constructor() {
-    this._element = null;
-  }
-
+class ListFilm  extends Abstract {
   getTemplate() {
     return createListFilms();
   }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
-  }
 };
+
 
 const createCardsFilms = (cards = {}) => {
   const {title, poster, description, genres, dateFilm, countCommit, duration, rating} = cards;
@@ -78,26 +50,25 @@ const createCardsFilms = (cards = {}) => {
 </article>`;
 };
 
-class CardFilms {
-  constructor (cards) {
-    this._element = null;
-    this._card = cards;
+class CardFilms extends Abstract {
+  constructor(card) {
+    super();
+    this._card = card;
   }
 
   getTemplate() {
     return createCardsFilms(this._card);
   }
 
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-    return this._element;
+  _clickHandler(evt) {
+    evt.preventDefault();
+    this._callback.click();
   }
 
-  removeElement() {
-    this._element = null;
+  setClickHandler(callback) {
+    this._callback.click = callback;
+    this.getElement().addEventListener(`click`, this._clickHandler);
   }
 }
 
-export {ListFilm, CardFilms, ContainerList};
+export  {ListFilm, CardFilms, ContainerList};
